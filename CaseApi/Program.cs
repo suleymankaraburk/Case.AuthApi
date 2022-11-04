@@ -9,7 +9,17 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
+//var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+//builder.Services.AddCors(options =>
+//{
+//    options.AddPolicy(name: MyAllowSpecificOrigins,
+//                      policy =>
+//                      {
+//                          policy.WithOrigins("https://localhost:5001")
+//                          .AllowAnyMethod()
+//                          .AllowAnyHeader();
+//                      });
+//});
 builder.Services.AddControllers();
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionString")));
 
@@ -83,6 +93,11 @@ builder.Services.AddSwaggerGen(swagger =>
 });
 
 var app = builder.Build();
+app.UseCors(x => x.
+ AllowAnyMethod()
+.AllowAnyHeader()
+.AllowCredentials()
+.WithOrigins( "http://localhost:5000"));
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -94,7 +109,7 @@ if (app.Environment.IsDevelopment())
 app.UseSwagger();
 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ASP.NET  6 Web API v1"));
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseRouting();
 

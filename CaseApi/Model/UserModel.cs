@@ -1,8 +1,12 @@
-﻿namespace CaseApi.Model
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace CaseApi.Model
 {
     public class UserModel
     {
-        public string UserName { get; set; }
+        [Required(ErrorMessage = "User Name is required")]
+        public string Username { get; set; }
+        [Required(ErrorMessage = "Password is required")]
         public string Password { get; set; }
     }
 }

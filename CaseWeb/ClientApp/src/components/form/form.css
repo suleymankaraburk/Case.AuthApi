@@ -1,0 +1,10 @@
+﻿.form {
+    background-color:rgb(128, 128, 128);
+    padding:10px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    width:25%;
+    box-shadow:2px 2px rgb(128, 128, 128,0.5);
+}

@@ -12,7 +12,7 @@ namespace CaseApi.Controllers
    
     [ApiController]
     [Route("api/[controller]")]
-    public class AccountController : Controller
+    public class AccountController : ControllerBase
     {
         private UserManager<ApplicationUser> userManager;
         private IConfiguration _config;
@@ -25,7 +25,7 @@ namespace CaseApi.Controllers
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] UserModel model) 
         {
-            var user = await userManager.FindByNameAsync(model.UserName);
+            var user = await userManager.FindByNameAsync(model.Username);
             if (user != null && await userManager.CheckPasswordAsync(user, model.Password))
             {
                 var userRoles = await userManager.GetRolesAsync(user);
@@ -97,9 +97,9 @@ namespace CaseApi.Controllers
         private UserModel ValidateUser(UserModel model)
         {
             UserModel user = null;
-            if (model.UserName == "user" && model.Password == "user123")
+            if (model.Username == "user" && model.Password == "user123")
             {
-                user = new UserModel { UserName = model.UserName, Password = model.Password };
+                user = new UserModel { Username = model.Username, Password = model.Password };
             }
             return user;
         }
